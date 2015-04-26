@@ -2,6 +2,17 @@
 
 ## Creates a list that takes a matrix as an input and caches its inverse.
 
+## First it stores a default value for the inverse
+## Then it creates four functions: set, get, setinverse, getinverse
+## --set stores the input matrix (and resets the inverse)
+## --get retrieves the input matrix
+## --setinverse stores the inverse (as the value of an argument named 'solve')
+## --getinverse retrieves the inverse 
+## Then it returns a list containing the four functions
+
+## Note that 'm' might be changed to 'inv' for clarity
+## But I am making as few changes as possible
+
 makeCacheMatrix <- function(x = matrix()) {
 
         m <- NULL
@@ -22,7 +33,8 @@ makeCacheMatrix <- function(x = matrix()) {
 ## it retrieves the inverse from the cache.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+        ## Return a matrix that is the inverse of the matrix held in 'x'
+        ## Each '$' calls a function from the list 'x'
 
         m <- x$getinverse()
         if(!is.null(m)) {
@@ -34,3 +46,9 @@ cacheSolve <- function(x, ...) {
         x$setinverse(m)
         m
 }
+
+## Remember, here, 'x' is just some object where makeCacheMatrix is stored,
+## for example: 
+## > a <- makeCacheMatrix(SOME_MATRIX)
+## > cacheSolve(a)
+## Then 'x' is is just the 'a' object, and 'x$get' would be 'a$get', etc.
